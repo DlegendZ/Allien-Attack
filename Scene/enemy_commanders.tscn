@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://di6u7rhe0fux5"]
+
+[ext_resource type="Texture2D" uid="uid://cr5si7ql71oox" path="res://Assets/PNG/Sprites X2/Ships/spaceShips_005.png" id="1_fctn5"]
+[ext_resource type="Script" uid="uid://iys0haiuupwu" path="res://Script/enemy_commanders.gd" id="1_irut0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rnv6q"]
+radius = 82.0
+height = 346.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_spwjx"]
+radius = 90.0
+height = 246.0
+
+[sub_resource type="Curve" id="Curve_rmigf"]
+_data = [Vector2(0.00318471, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_uppjr"]
+
+[node name="Enemy Commanders" type="Area2D"]
+z_index = -1
+scale = Vector2(0.175356, 0.157791)
+script = ExtResource("1_irut0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fctn5")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(54, 6)
+shape = SubResource("CapsuleShape2D_rnv6q")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(-54, 3)
+shape = SubResource("CapsuleShape2D_rnv6q")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_spwjx")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -57.924)
+amount = 50
+lifetime_randomness = 1.0
+direction = Vector2(0, 1)
+gravity = Vector2(0, -25)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_rmigf")
+color_ramp = SubResource("Gradient_uppjr")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

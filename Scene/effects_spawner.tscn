@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1fm3o8r4bxga"]
+
+[ext_resource type="Script" path="res://Script/effects_spawner.gd" id="1_blwdu"]
+[ext_resource type="PackedScene" uid="uid://dkkiiry7wtbf3" path="res://Scene/life_add.tscn" id="2_cqpb5"]
+[ext_resource type="PackedScene" uid="uid://200mhfcxib0i" path="res://Scene/shield.tscn" id="3_nqlby"]
+[ext_resource type="PackedScene" uid="uid://cb3lj0cgy6rf1" path="res://Scene/double_score.tscn" id="4_p5x5w"]
+
+[node name="EffectsSpawner" type="Node2D"]
+script = ExtResource("1_blwdu")
+Effects = Array[PackedScene]([ExtResource("2_cqpb5"), ExtResource("3_nqlby"), ExtResource("4_p5x5w")])
+
+[node name="EffectsContainer" type="Node" parent="."]

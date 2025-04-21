@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dw3467wlkt8yy"]
+
+[ext_resource type="Script" uid="uid://377kyr0munja" path="res://Script/Enemy.gd" id="1_8dlab"]
+[ext_resource type="Texture2D" uid="uid://buxrm301j6405" path="res://Assets/PNG/Enemies/enemyBlack2.png" id="2_jengu"]
+
+[sub_resource type="Curve" id="Curve_7541n"]
+_data = [Vector2(0.00318471, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_dyng8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3grr"]
+radius = 36.0
+height = 84.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6q5f"]
+size = Vector2(103, 8)
+
+[node name="Enemy" type="Area2D"]
+z_index = -1
+scale = Vector2(0.568406, 0.577475)
+script = ExtResource("1_8dlab")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -29)
+amount = 50
+lifetime_randomness = 1.0
+direction = Vector2(0, 1)
+gravity = Vector2(0, -25)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_7541n")
+color_ramp = SubResource("Gradient_dyng8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.5, 12)
+texture = ExtResource("2_jengu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 14)
+shape = SubResource("CapsuleShape2D_u3grr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v6q5f")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

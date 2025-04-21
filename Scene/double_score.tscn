@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb3lj0cgy6rf1"]
+
+[ext_resource type="Script" path="res://Script/double_score.gd" id="1_njxvj"]
+[ext_resource type="Texture2D" uid="uid://cap8tryvxfso2" path="res://Assets/PNG/UI/numeralX.png" id="1_ricqw"]
+[ext_resource type="Texture2D" uid="uid://wljancw6m52v" path="res://Assets/PNG/UI/numeral2.png" id="2_vx7ay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtrrf"]
+size = Vector2(35, 20)
+
+[node name="Double Score" type="Area2D"]
+script = ExtResource("1_njxvj")
+
+[node name="x2" type="Node2D" parent="."]
+position = Vector2(-17, 0)
+
+[node name="2" type="Sprite2D" parent="x2"]
+position = Vector2(17, 0)
+texture = ExtResource("2_vx7ay")
+
+[node name="x" type="Sprite2D" parent="x2"]
+texture = ExtResource("1_ricqw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7.5, 0)
+shape = SubResource("RectangleShape2D_qtrrf")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

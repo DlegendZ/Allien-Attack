@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://c2rin3pxlojfb"]
+
+[ext_resource type="PackedScene" uid="uid://cmlsgm5xwmuev" path="res://Scene/Player.tscn" id="1_gpldu"]
+[ext_resource type="Texture2D" uid="uid://ckca8upli3e83" path="res://Assets/Backgrounds/black.png" id="1_p7pch"]
+[ext_resource type="Script" uid="uid://cvjmt5gcqk2c6" path="res://Script/Game.gd" id="1_pshs2"]
+[ext_resource type="PackedScene" uid="uid://bin802wac5gwo" path="res://Scene/enemy_spawner.tscn" id="3_2cdtv"]
+[ext_resource type="PackedScene" uid="uid://bcp8hslvow0cl" path="res://Scene/UI.tscn" id="5_5og5s"]
+[ext_resource type="PackedScene" uid="uid://b1fm3o8r4bxga" path="res://Scene/effects_spawner.tscn" id="5_mygrq"]
+[ext_resource type="AudioStream" uid="uid://b2sgkkcjxbfno" path="res://Assets/Audio/sfx_twoTone.ogg" id="7_hk387"]
+[ext_resource type="AudioStream" uid="uid://b7ybkn0r2m25l" path="res://Assets/Audio/sfx_zap.ogg" id="7_ljq6g"]
+[ext_resource type="AudioStream" uid="uid://bcv1e0vl8o0w1" path="res://Assets/Audio/Touched.wav" id="7_lpt1c"]
+[ext_resource type="AudioStream" uid="uid://do2yn1spkwm2m" path="res://Assets/Audio/InGame.mp3" id="7_xgtxk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyxas"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_pshs2")
+
+[node name="Player" parent="." instance=ExtResource("1_gpldu")]
+z_index = 2
+
+[node name="PlayerShield" type="AudioStreamPlayer2D" parent="Player"]
+
+[node name="Graphic" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphic"]
+layer = -1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Graphic/CanvasLayer"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Graphic/CanvasLayer/ParallaxBackground"]
+motion_mirroring = Vector2(0, 648)
+
+[node name="TextureRect" type="TextureRect" parent="Graphic/CanvasLayer/ParallaxBackground/ParallaxLayer"]
+offset_right = 1173.0
+offset_bottom = 677.0
+texture = ExtResource("1_p7pch")
+stretch_mode = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Graphic/CanvasLayer"]
+position = Vector2(579, 0)
+amount = 20
+emission_shape = 3
+emission_rect_extents = Vector2(648, 1)
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_max = 2.0
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_2cdtv")]
+z_index = -1
+
+[node name="EffectsSpawner" parent="." instance=ExtResource("5_mygrq")]
+
+[node name="UI" parent="." instance=ExtResource("5_5og5s")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Node" parent="."]
+
+[node name="Timer" type="Timer" parent="Timer"]
+wait_time = 10.0
+one_shot = true
+
+[node name="AudioPack" type="Node" parent="."]
+
+[node name="Background" type="AudioStreamPlayer" parent="AudioPack"]
+stream = ExtResource("7_xgtxk")
+volume_db = -5.0
+autoplay = true
+
+[node name="Effects" type="AudioStreamPlayer" parent="AudioPack"]
+stream = ExtResource("7_ljq6g")
+
+[node name="Timer" type="AudioStreamPlayer" parent="AudioPack"]
+
+[node name="LifeDec" type="AudioStreamPlayer" parent="AudioPack"]
+stream = ExtResource("7_lpt1c")
+
+[node name="LifeAdd" type="AudioStreamPlayer" parent="AudioPack"]
+stream = ExtResource("7_hk387")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(61.3346, 32.9762)
+shape = SubResource("RectangleShape2D_oyxas")
+action = "Shoot"
+
+[connection signal="Enemy" from="EnemySpawner" to="." method="_on_enemy_spawner_enemy"]
+[connection signal="EffectsSignal" from="EffectsSpawner" to="." method="_on_effects_spawner_effects_signal"]
+[connection signal="timeout" from="Timer/Timer" to="." method="_on_timer_timeout"]

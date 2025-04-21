@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://nc63ldkt2fy4"]
+
+[ext_resource type="Script" uid="uid://7sg7w662fw8f" path="res://Script/enemy_generals.gd" id="1_3xvx8"]
+[ext_resource type="Texture2D" uid="uid://3x8wv0h726w2" path="res://Assets/PNG/Effects/shield3.png" id="2_j7oov"]
+[ext_resource type="AudioStream" uid="uid://c4fv60asnuoht" path="res://Assets/Audio/sfx_shieldDown.ogg" id="3_g0jqh"]
+[ext_resource type="Texture2D" uid="uid://fdrrgfqgtbxj" path="res://Assets/PNG/ufoBlue.png" id="3_n7k6g"]
+
+[sub_resource type="Curve" id="Curve_832bc"]
+_data = [Vector2(0.00318471, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_44y40"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vbtna"]
+radius = 17.216
+height = 34.4321
+
+[node name="EnemyGenerals" type="Area2D"]
+z_index = -1
+scale = Vector2(1.26383, 1.4252)
+script = ExtResource("1_3xvx8")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -16.924)
+amount = 50
+lifetime_randomness = 1.0
+direction = Vector2(0, 1)
+gravity = Vector2(0, -25)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_832bc")
+color_ramp = SubResource("Gradient_44y40")
+
+[node name="Shield" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.486275)
+position = Vector2(-1.348e-08, 3.76601)
+rotation = 3.14159
+scale = Vector2(0.388491, 0.358575)
+texture = ExtResource("2_j7oov")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.396356, 0.37255)
+texture = ExtResource("3_n7k6g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vbtna")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_g0jqh")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

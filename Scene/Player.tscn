@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://cmlsgm5xwmuev"]
+
+[ext_resource type="Texture2D" uid="uid://s150vgtey3qj" path="res://Assets/PNG/playerShip2_orange.png" id="1_mp0wp"]
+[ext_resource type="Script" uid="uid://du0y5om13txjp" path="res://Script/Player.gd" id="1_r4k17"]
+[ext_resource type="Texture2D" uid="uid://c0fhh0a6cec21" path="res://Assets/PNG/Effects/shield1.png" id="2_t8blq"]
+[ext_resource type="AudioStream" uid="uid://bve13f0fcmqwc" path="res://Assets/Audio/sfx_laser1.ogg" id="3_f8h2x"]
+
+[sub_resource type="Curve" id="Curve_l632s"]
+_data = [Vector2(0.022293, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_f3wnw"]
+offsets = PackedFloat32Array(0, 0.481481, 1)
+colors = PackedColorArray(1, 0.4, 0, 1, 0.837144, 0.633766, 1.15514e-06, 1, 1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ry4j"]
+radius = 16.0
+height = 78.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_akgcu"]
+radius = 20.0
+height = 106.0
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_r4k17")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 31)
+amount = 50
+lifetime_randomness = 1.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 400)
+scale_amount_min = 15.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_l632s")
+color_ramp = SubResource("Gradient_f3wnw")
+
+[node name="Shield" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_t8blq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mp0wp")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_5ry4j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_akgcu")
+
+[node name="Laser Container" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f8h2x")
