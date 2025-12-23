@@ -68,14 +68,3 @@ This repository is a **retro-style alien shooter**, perfect for:
 * Learning Godot & GDScript
 * Game prototype extensions
 * Rapid game prototype testing
-
----
-
-## 🛠 How to Contribute
-
-* Fork the repo
-* Create a new branch
-* Develop features or fix bugs
-* Submit a pull request
-
-Thank you for exploring ✨
