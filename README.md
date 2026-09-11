@@ -5,6 +5,8 @@ Defend the galaxy against waves of alien invaders in this classic arcade-style a
 
 🎮 Designed for fun, fast gameplay with intuitive controls and escalating challenge.
 
+![Screenshot](https://github.com/user-attachments/assets/f55da2fb-cb5d-4db1-b1d2-a261a1c21224)
+
 ---
 
 ## 🚀 Features
